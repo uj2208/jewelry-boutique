@@ -19,6 +19,7 @@
             color: #333333;
             background-color: #F4E9E3;
             animation: fadeIn 1s ease-in;
+            overflow-x: hidden;
         }
 
         @keyframes fadeIn {
@@ -28,7 +29,7 @@
 
         header {
             background-color: #FFFFFF;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             position: sticky;
             top: 0;
@@ -44,7 +45,7 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #C49A6C;
         }
@@ -52,14 +53,16 @@
         .nav-links {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
-            margin-left: 1.5rem;
+            margin-left: 1rem;
             text-decoration: none;
             color: #333333;
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
@@ -67,7 +70,7 @@
         }
 
         .hero {
-            height: 100vh;
+            height: 80vh;
             position: relative;
             display: flex;
             align-items: center;
@@ -92,19 +95,16 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
+            transform: scale(1.1) translateX(10px);
+            transition: opacity 1.5s ease-in-out, transform 10s ease-in-out;
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+            will-change: transform, opacity;
         }
 
         .hero-slide.active {
             opacity: 1;
-            transform: scale(1.15);
+            transform: scale(1.15) translateX(0);
         }
 
         .hero-slide::before {
@@ -130,27 +130,35 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: #C49A6C;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
             color: #E0E0E0;
             font-weight: 300;
         }
 
         .cta-btn {
-            padding: 1rem 2.5rem;
+            padding: 0.9rem 2.2rem;
             background-color: #C49A6C;
             color: #FFFFFF;
             text-decoration: none;
             border-radius: 8px;
             transition: background-color 0.3s, transform 0.3s;
             font-weight: 600;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
         }
 
         .cta-btn:hover {
@@ -159,7 +167,7 @@
         }
 
         .products {
-            padding: 6rem 1rem;
+            padding: 5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -167,16 +175,17 @@
         }
 
         .products h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             color: #C49A6C;
+            animation: fadeIn 1s ease-in;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
         }
 
         .product-card {
@@ -185,10 +194,17 @@
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             transition: transform 0.4s, box-shadow 0.4s;
-            padding-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
             position: relative;
-            animation: cardFadeIn 0.8s ease-in;
+            opacity: 0;
+            animation: cardFadeIn 0.8s ease-in forwards;
         }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
 
         @keyframes cardFadeIn {
             from { opacity: 0; transform: translateY(30px); }
@@ -202,13 +218,9 @@
 
         .product-card img {
             width: 100%;
-            height: 260px;
+            height: 240px;
             object-fit: cover;
             transition: opacity 0.3s ease-in-out;
-        }
-
-        .product-card:hover img {
-            opacity: 0;
         }
 
         .product-card .hover-image {
@@ -216,44 +228,56 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 260px;
+            height: 240px;
             object-fit: cover;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
+        }
+
+        .product-card:hover img:not(.hover-image) {
+            opacity: 0;
         }
 
         .product-card:hover .hover-image {
             opacity: 1;
         }
 
+        .product-card.tapped .hover-image {
+            opacity: 1;
+        }
+
+        .product-card.tapped img:not(.hover-image) {
+            opacity: 0;
+        }
+
         .product-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            padding: 1.2rem;
+            padding: 1rem;
             color: #333333;
         }
 
         .product-card p {
-            padding: 0 1.2rem;
+            padding: 0 1rem;
             color: #666666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 300;
         }
 
         .product-card .price {
             font-weight: 700;
             color: #C49A6C;
-            padding: 0.8rem 1.2rem;
-            font-size: 1.3rem;
+            padding: 0.6rem 1rem;
+            font-size: 1.2rem;
         }
 
         .product-card .size-dropdown {
             margin: 0.8rem auto;
-            padding: 0.6rem;
-            width: 85%;
+            padding: 0.5rem;
+            width: 80%;
             border: 1px solid #E8E8E8;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #333333;
             background: #FFFFFF;
             transition: border-color 0.3s, box-shadow 0.3s;
@@ -269,7 +293,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 1rem auto;
+            margin: 0.8rem auto;
         }
 
         .quantity-control button {
@@ -280,6 +304,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            font-size: 0.9rem;
         }
 
         .quantity-control button:hover {
@@ -297,8 +322,8 @@
         }
 
         .quantity-control span {
-            margin: 0 1rem;
-            font-size: 1rem;
+            margin: 0 0.8rem;
+            font-size: 0.9rem;
             color: #333333;
         }
 
@@ -309,7 +334,7 @@
         }
 
         .cart {
-            padding: 6rem 1rem;
+            padding: 5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -317,9 +342,9 @@
         }
 
         .cart h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             color: #C49A6C;
         }
 
@@ -330,9 +355,10 @@
         }
 
         .cart-table th, .cart-table td {
-            padding: 1.2rem;
+            padding: 1rem;
             border-bottom: 1px solid #E8E8E8;
             text-align: left;
+            font-size: 0.9rem;
         }
 
         .cart-table th {
@@ -357,6 +383,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 0.85rem;
         }
 
         .cart-quantity-control button:hover {
@@ -370,16 +397,17 @@
 
         .cart-quantity-control span {
             margin: 0 0.6rem;
+            font-size: 0.85rem;
         }
 
         .cart-total {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #C49A6C;
         }
 
         .checkout-btn {
-            padding: 1rem 2.5rem;
+            padding: 0.9rem 2.2rem;
             background-color: #C49A6C;
             color: #FFFFFF;
             border: none;
@@ -387,6 +415,8 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 2s infinite;
         }
 
         .checkout-btn:hover {
@@ -395,7 +425,7 @@
         }
 
         .themes {
-            padding: 6rem 1rem;
+            padding: 5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -403,17 +433,17 @@
         }
 
         .themes h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             color: #C49A6C;
         }
 
         .slideshow-container {
             position: relative;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            height: 450px;
+            height: 400px;
             overflow: hidden;
             border-radius: 12px;
         }
@@ -434,7 +464,7 @@
             justify-content: center;
             color: #FFFFFF;
             text-shadow: 0 2px 4px rgba(0,0,0,0.7);
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
         }
 
@@ -444,46 +474,46 @@
         }
 
         .theme-description {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             color: #666666;
-            font-size: 1.2rem;
-            max-width: 700px;
+            font-size: 1.1rem;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             font-weight: 300;
         }
 
         .about {
-            padding: 6rem 1rem;
+            padding: 5rem 1rem;
             background: #FFFFFF;
             text-align: center;
         }
 
         .about h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 2rem;
             color: #C49A6C;
         }
 
         .about p {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             color: #666666;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 300;
         }
 
         .contact {
-            padding: 6rem 1rem;
-            max-width: 700px;
+            padding: 5rem 1rem;
+            max-width: 600px;
             margin: 0 auto;
             text-align: center;
             background: #F4E9E3;
         }
 
         .contact h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 2rem;
             color: #C49A6C;
@@ -492,15 +522,15 @@
         .contact form {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .contact input,
         .contact textarea {
-            padding: 1rem;
+            padding: 0.8rem;
             border: 1px solid #E8E8E8;
             border-radius: 6px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             background: #FFFFFF;
             transition: border-color 0.3s;
         }
@@ -512,7 +542,7 @@
         }
 
         .contact button {
-            padding: 1rem;
+            padding: 0.9rem;
             background-color: #C49A6C;
             color: #FFFFFF;
             border: none;
@@ -520,6 +550,8 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 2s infinite;
         }
 
         .contact button:hover {
@@ -528,7 +560,7 @@
         }
 
         footer {
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
             background: #FFFFFF;
             color: #666666;
             text-align: center;
@@ -536,15 +568,15 @@
         }
 
         footer p {
-            margin-bottom: 0.6rem;
-            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
             font-weight: 300;
         }
 
         footer a {
             color: #C49A6C;
             text-decoration: none;
-            margin: 0 0.4rem;
+            margin: 0 0.3rem;
             font-weight: 500;
         }
 
@@ -560,9 +592,10 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
-            margin-top: 1.2rem;
-            font-size: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
+            animation: pulse 2s infinite;
         }
 
         .share-btn:hover {
@@ -573,75 +606,15 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
-                padding: 1rem;
+                padding: 0.8rem;
             }
 
             .logo {
-                font-size: 1.4rem;
-            }
-
-            .nav-links a {
-                margin-left: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                height: 80vh;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .cta-btn {
-                padding: 0.8rem 2rem;
-                font-size: 1rem;
-            }
-
-            .products, .cart, .themes, .about, .contact {
-                padding: 4rem 0.5rem;
-            }
-
-            .products h2, .cart h2, .themes h2, .about h2, .contact h2 {
-                font-size: 2.2rem;
-            }
-
-            .product-grid {
-                gap: 1.5rem;
-            }
-
-            .product-card img, .product-card .hover-image {
-                height: 220px;
-            }
-
-            .product-card h3 {
                 font-size: 1.3rem;
             }
 
-            .product-card .price {
-                font-size: 1.2rem;
-            }
-
-            .product-card .size-dropdown {
-                width: 90%;
-            }
-
-            .slideshow-container {
-                height: 350px;
-            }
-
-            .slide {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.2rem;
+            .nav-links {
+                gap: 0.5rem;
             }
 
             .nav-links a {
@@ -654,15 +627,28 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .hero p {
-                font-size: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .cta-btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .products, .cart, .themes, .about, .contact {
+                padding: 3rem 0.5rem;
+            }
+
+            .products h2, .cart h2, .themes h2, .about h2, .contact h2 {
+                font-size: 2rem;
             }
 
             .product-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 1.2rem;
             }
 
@@ -672,14 +658,136 @@
 
             .product-card h3 {
                 font-size: 1.2rem;
+                padding: 0.8rem;
             }
 
             .product-card p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                padding: 0 0.8rem;
             }
 
             .product-card .price {
                 font-size: 1.1rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .product-card .size-dropdown {
+                width: 85%;
+                font-size: 0.85rem;
+            }
+
+            .quantity-control button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .quantity-control span {
+                margin: 0 0.6rem;
+                font-size: 0.85rem;
+            }
+
+            .cart-table th, .cart-table td {
+                padding: 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .slideshow-container {
+                height: 300px;
+            }
+
+            .slide {
+                font-size: 1.5rem;
+            }
+
+            .theme-description {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-links a {
+                margin-left: 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .products h2, .cart h2, .themes h2, .about h2, .contact h2 {
+                font-size: 1.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .product-card img, .product-card .hover-image {
+                height: 180px;
+            }
+
+            .product-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .product-card p {
+                font-size: 0.8rem;
+            }
+
+            .product-card .price {
+                font-size: 1rem;
+            }
+
+            .product-card .size-dropdown {
+                width: 90%;
+                font-size: 0.8rem;
+            }
+
+            .quantity-control button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .quantity-control span {
+                font-size: 0.8rem;
+            }
+
+            .cart-table th, .cart-table td {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .cart-quantity-control button {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .cart-total {
+                font-size: 1.1rem;
+            }
+
+            .checkout-btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
             }
 
             .slideshow-container {
@@ -687,7 +795,38 @@
             }
 
             .slide {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
+            }
+
+            .theme-description {
+                font-size: 0.9rem;
+            }
+
+            .about p {
+                font-size: 0.9rem;
+            }
+
+            .contact input, .contact textarea {
+                padding: 0.7rem;
+                font-size: 0.85rem;
+            }
+
+            .contact button {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            footer p {
+                font-size: 0.85rem;
+            }
+
+            footer a {
+                font-size: 0.85rem;
+            }
+
+            .share-btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -731,26 +870,26 @@
         <h2>Our Collection</h2>
         <div class="product-grid">
             <div class="product-card">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover" loading="lazy">
                 <h3>Chikankari Saree</h3>
                 <p>Elegant hand-embroidered saree.</p>
             </div>
             <div class="product-card">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover" loading="lazy">
                 <h3>Chikankari Kurti</h3>
                 <p>Lightweight and stylish kurti.</p>
             </div>
             <div class="product-card">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover" loading="lazy">
                 <h3>Co-ord Set</h3>
                 <p>Modern chikankari co-ord set.</p>
             </div>
             <div class="product-card">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover" loading="lazy">
                 <h3>Anarkali Suit</h3>
                 <p>Graceful anarkali with embroidery.</p>
             </div>
@@ -761,8 +900,8 @@
         <h2>Explore All Products</h2>
         <div class="product-grid">
             <div class="product-card" data-id="1" data-name="Chikankari Saree" data-price="150">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover" loading="lazy">
                 <h3>Chikankari Saree</h3>
                 <p>Elegant hand-embroidered saree.</p>
                 <p class="price">$150</p>
@@ -779,8 +918,8 @@
                 </div>
             </div>
             <div class="product-card" data-id="2" data-name="Chikankari Kurti" data-price="80">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover" loading="lazy">
                 <h3>Chikankari Kurti</h3>
                 <p>Lightweight and stylish kurti.</p>
                 <p class="price">$80</p>
@@ -797,8 +936,8 @@
                 </div>
             </div>
             <div class="product-card" data-id="3" data-name="Co-ord Set" data-price="120">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover" loading="lazy">
                 <h3>Co-ord Set</h3>
                 <p>Modern chikankari co-ord set.</p>
                 <p class="price">$120</p>
@@ -815,8 +954,8 @@
                 </div>
             </div>
             <div class="product-card" data-id="4" data-name="Anarkali Suit" data-price="200">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover" loading="lazy">
                 <h3>Anarkali Suit</h3>
                 <p>Graceful anarkali with embroidery.</p>
                 <p class="price">$200</p>
@@ -833,8 +972,8 @@
                 </div>
             </div>
             <div class="product-card" data-id="5" data-name="Chikankari Top" data-price="60">
-                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Chikankari Top">
-                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/stunning_yellow_silk_palazzo_suit_with_dupatta_1719832812as2881471_2.jpg" alt="Chikankari Top Hover">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Chikankari Top" loading="lazy">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/stunning_yellow_silk_palazzo_suit_with_dupatta_1719832812as2881471_2.jpg" alt="Chikankari Top Hover" loading="lazy">
                 <h3>Chikankari Top</h3>
                 <p>Casual top with chikankari work.</p>
                 <p class="price">$60</p>
@@ -919,6 +1058,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll for Navigation
             document.querySelectorAll('.nav-links a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -935,6 +1075,7 @@
                 });
             });
 
+            // Contact Form Submission
             const contactForm = document.getElementById('contact-form');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
@@ -946,6 +1087,7 @@
                 console.error('Contact form not found');
             }
 
+            // Hero Slideshow
             const heroSlides = document.querySelectorAll('.hero-slide');
             let currentHeroSlide = 0;
 
@@ -970,6 +1112,7 @@
                 console.error('Hero slides not found');
             }
 
+            // Theme Slideshow
             const slides = document.querySelectorAll('.slide');
             let currentSlide = 0;
 
@@ -994,6 +1137,7 @@
                 console.error('Theme slides not found');
             }
 
+            // Cart Management
             let cart = [];
 
             function updateCart() {
@@ -1101,6 +1245,13 @@
                         console.error('Error decreasing quantity:', error);
                     }
                 });
+
+                // Mobile Tap Toggle for Image
+                card.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && !e.target.closest('.quantity-control, .size-dropdown')) {
+                        card.classList.toggle('tapped');
+                    }
+                });
             });
 
             const checkoutBtn = document.querySelector('.checkout-btn');
@@ -1142,6 +1293,25 @@
             } else {
                 console.error('Share button not found');
             }
+
+            // Image Reveal on Scroll
+            const revealImages = document.querySelectorAll('.product-card img');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealImages.forEach(img => {
+                img.style.opacity = 0;
+                img.style.transform = 'translateY(20px)';
+                img.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(img);
+            });
         });
     </script>
 </body>
