@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <meta name="description" content="Discover elegant, handcrafted jewelry at Jewelry Boutique. Shop our exquisite collection of necklaces, rings, earrings, and more.">
+    <title>Nitya Chikankari - Handcrafted Elegance</title>
+    <meta name="description" content="Discover authentic Lucknowi chikankari at Nitya Chikankari. Shop handcrafted sarees, kurtis, co-ord sets, and more.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             line-height: 1.6;
-            color: #333;
-            background-color: #F8F1E9;
+            color: #333333;
+            background-color: #F4E9E3;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         header {
             background-color: #FFFFFF;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -37,9 +44,9 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #D4A017;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #C49A6C;
         }
 
         .nav-links {
@@ -50,12 +57,13 @@
         .nav-links a {
             margin-left: 1.5rem;
             text-decoration: none;
-            color: #333;
+            color: #333333;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
-            color: #D4A017;
+            color: #C49A6C;
         }
 
         .hero {
@@ -85,7 +93,7 @@
             height: 100%;
             opacity: 0;
             transform: scale(1.1);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -96,7 +104,7 @@
 
         .hero-slide.active {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1.15);
         }
 
         .hero-slide::before {
@@ -106,43 +114,52 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3));
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
             padding: 1rem;
+            animation: slideUp 1s ease-in;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: #D4A017;
+            color: #C49A6C;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #C0C0C0;
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: #E0E0E0;
+            font-weight: 300;
         }
 
         .cta-btn {
-            padding: 0.8rem 2rem;
-            background-color: #D4A017;
+            padding: 1rem 2.5rem;
+            background-color: #C49A6C;
             color: #FFFFFF;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             transition: background-color 0.3s, transform 0.3s;
+            font-weight: 600;
         }
 
         .cta-btn:hover {
-            background-color: #B8860B;
+            background-color: #A88055;
             transform: scale(1.05);
         }
 
         .products {
-            padding: 4rem 1rem;
+            padding: 6rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -150,80 +167,128 @@
         }
 
         .products h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #D4A017;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #C49A6C;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
         }
 
         .product-card {
             background: #FFFFFF;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.4s, box-shadow 0.4s;
+            padding-bottom: 1.5rem;
             position: relative;
+            animation: cardFadeIn 0.8s ease-in;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(212,160,23,0.3);
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(196,154,108,0.3);
         }
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 260px;
             object-fit: cover;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .product-card:hover img {
+            opacity: 0;
+        }
+
+        .product-card .hover-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .product-card:hover .hover-image {
+            opacity: 1;
         }
 
         .product-card h3 {
-            font-size: 1.2rem;
-            padding: 0.8rem;
-            color: #333;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 1.2rem;
+            color: #333333;
         }
 
         .product-card p {
-            padding: 0 0.8rem;
-            color: #666;
+            padding: 0 1.2rem;
+            color: #666666;
             font-size: 0.95rem;
+            font-weight: 300;
         }
 
         .product-card .price {
-            font-weight: bold;
-            color: #D4A017;
-            padding: 0 0.8rem;
-            font-size: 1rem;
+            font-weight: 700;
+            color: #C49A6C;
+            padding: 0.8rem 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .product-card .size-dropdown {
+            margin: 0.8rem auto;
+            padding: 0.6rem;
+            width: 85%;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #333333;
+            background: #FFFFFF;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card .size-dropdown:focus {
+            border-color: #C49A6C;
+            box-shadow: 0 0 5px rgba(196,154,108,0.3);
+            outline: none;
         }
 
         .quantity-control {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0.8rem auto;
+            margin: 1rem auto;
         }
 
         .quantity-control button {
-            padding: 0.5rem 1rem;
-            background-color: #C0C0C0;
-            color: #FFFFFF;
+            padding: 0.6rem 1.2rem;
+            background-color: #E8E8E8;
+            color: #333333;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
 
         .quantity-control button:hover {
-            background-color: #A9A9A9;
+            background-color: #E6D5C3;
             transform: scale(1.05);
         }
 
         .quantity-control button:disabled {
-            background-color: #E0E0E0;
+            background-color: #F0F0F0;
             cursor: not-allowed;
         }
 
@@ -232,9 +297,9 @@
         }
 
         .quantity-control span {
-            margin: 0 0.8rem;
+            margin: 0 1rem;
             font-size: 1rem;
-            color: #333;
+            color: #333333;
         }
 
         @keyframes addToCart {
@@ -244,7 +309,7 @@
         }
 
         .cart {
-            padding: 4rem 1rem;
+            padding: 6rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -252,9 +317,10 @@
         }
 
         .cart h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #D4A017;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #C49A6C;
         }
 
         .cart-table {
@@ -264,17 +330,18 @@
         }
 
         .cart-table th, .cart-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #C0C0C0;
+            padding: 1.2rem;
+            border-bottom: 1px solid #E8E8E8;
             text-align: left;
         }
 
         .cart-table th {
-            color: #D4A017;
+            color: #C49A6C;
+            font-weight: 600;
         }
 
         .cart-table td {
-            color: #666;
+            color: #666666;
         }
 
         .cart-quantity-control {
@@ -283,70 +350,72 @@
         }
 
         .cart-quantity-control button {
-            padding: 0.3rem 0.8rem;
-            background-color: #C0C0C0;
-            color: #FFFFFF;
+            padding: 0.4rem 1rem;
+            background-color: #E8E8E8;
+            color: #333333;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .cart-quantity-control button:hover {
-            background-color: #A9A9A9;
+            background-color: #E6D5C3;
         }
 
         .cart-quantity-control button:disabled {
-            background-color: #E0E0E0;
+            background-color: #F0F0F0;
             cursor: not-allowed;
         }
 
         .cart-quantity-control span {
-            margin: 0 0.5rem;
+            margin: 0 0.6rem;
         }
 
         .cart-total {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #D4A017;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #C49A6C;
         }
 
         .checkout-btn {
-            padding: 0.8rem 2rem;
-            background-color: #D4A017;
+            padding: 1rem 2.5rem;
+            background-color: #C49A6C;
             color: #FFFFFF;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            font-weight: 600;
         }
 
         .checkout-btn:hover {
-            background-color: #B8860B;
+            background-color: #A88055;
             transform: scale(1.05);
         }
 
         .themes {
-            padding: 4rem 1rem;
+            padding: 6rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
-            background: #F8F1E9;
+            background: #F4E9E3;
         }
 
         .themes h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #D4A017;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #C49A6C;
         }
 
         .slideshow-container {
             position: relative;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            height: 400px;
+            height: 450px;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .slide {
@@ -365,8 +434,8 @@
             justify-content: center;
             color: #FFFFFF;
             text-shadow: 0 2px 4px rgba(0,0,0,0.7);
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
 
         .slide.active {
@@ -375,94 +444,108 @@
         }
 
         .theme-description {
-            margin-top: 1.5rem;
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
+            margin-top: 2rem;
+            color: #666666;
+            font-size: 1.2rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 300;
         }
 
         .about {
-            padding: 4rem 1rem;
+            padding: 6rem 1rem;
             background: #FFFFFF;
             text-align: center;
         }
 
         .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #D4A017;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #C49A6C;
         }
 
         .about p {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            color: #666;
-            font-size: 1rem;
+            color: #666666;
+            font-size: 1.1rem;
+            font-weight: 300;
         }
 
         .contact {
-            padding: 4rem 1rem;
-            max-width: 600px;
+            padding: 6rem 1rem;
+            max-width: 700px;
             margin: 0 auto;
             text-align: center;
-            background: #F8F1E9;
+            background: #F4E9E3;
         }
 
         .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #D4A017;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #C49A6C;
         }
 
         .contact form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .contact input,
         .contact textarea {
-            padding: 0.8rem;
-            border: 1px solid #C0C0C0;
-            border-radius: 5px;
+            padding: 1rem;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
             font-size: 1rem;
             background: #FFFFFF;
+            transition: border-color 0.3s;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: #C49A6C;
+            outline: none;
         }
 
         .contact button {
-            padding: 0.8rem;
-            background-color: #D4A017;
+            padding: 1rem;
+            background-color: #C49A6C;
             color: #FFFFFF;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            font-weight: 600;
         }
 
         .contact button:hover {
-            background-color: #B8860B;
+            background-color: #A88055;
             transform: scale(1.05);
         }
 
         footer {
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             background: #FFFFFF;
-            color: #666;
+            color: #666666;
             text-align: center;
-            border-top: 1px solid #C0C0C0;
+            border-top: 1px solid #E8E8E8;
         }
 
         footer p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+            font-weight: 300;
         }
 
         footer a {
-            color: #D4A017;
+            color: #C49A6C;
             text-decoration: none;
-            margin: 0 0.3rem;
+            margin: 0 0.4rem;
+            font-weight: 500;
         }
 
         footer a:hover {
@@ -470,36 +553,95 @@
         }
 
         .share-btn {
-            padding: 0.6rem 1.5rem;
-            background-color: #C0C0C0;
-            color: #FFFFFF;
+            padding: 0.8rem 2rem;
+            background-color: #E8E8E8;
+            color: #333333;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+            margin-top: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .share-btn:hover {
-            background-color: #A9A9A9;
+            background-color: #E6D5C3;
             transform: scale(1.05);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
-                padding: 0.8rem 1rem;
+                padding: 1rem;
             }
 
             .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links a {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
                 font-size: 1.2rem;
             }
 
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
+            .cta-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+
+            .products, .cart, .themes, .about, .contact {
+                padding: 4rem 0.5rem;
+            }
+
+            .products h2, .cart h2, .themes h2, .about h2, .contact h2 {
+                font-size: 2.2rem;
+            }
+
+            .product-grid {
+                gap: 1.5rem;
+            }
+
+            .product-card img, .product-card .hover-image {
+                height: 220px;
+            }
+
+            .product-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .product-card .price {
+                font-size: 1.2rem;
+            }
+
+            .product-card .size-dropdown {
+                width: 90%;
+            }
+
+            .slideshow-container {
+                height: 350px;
+            }
+
+            .slide {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
             }
 
             .nav-links a {
@@ -508,7 +650,7 @@
             }
 
             .hero {
-                height: 80vh;
+                height: 70vh;
             }
 
             .hero h1 {
@@ -519,93 +661,25 @@
                 font-size: 1rem;
             }
 
-            .cta-btn {
-                padding: 0.6rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .products {
-                padding: 2rem 0.5rem;
-            }
-
-            .products h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1.5rem;
-            }
-
             .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
 
-            .product-card img {
-                height: 150px;
+            .product-card img, .product-card .hover-image {
+                height: 200px;
             }
 
             .product-card h3 {
-                font-size: 1rem;
-                padding: 0.5rem;
+                font-size: 1.2rem;
             }
 
             .product-card p {
-                font-size: 0.85rem;
-                padding: 0 0.5rem;
+                font-size: 0.9rem;
             }
 
             .product-card .price {
-                font-size: 0.9rem;
-                padding: 0 0.5rem;
-            }
-
-            .quantity-control button {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
-            }
-
-            .quantity-control span {
-                margin: 0 0.5rem;
-                font-size: 0.9rem;
-            }
-
-            .cart {
-                padding: 2rem 0.5rem;
-            }
-
-            .cart h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .cart-table th, .cart-table td {
-                padding: 0.5rem;
-                font-size: 0.85rem;
-            }
-
-            .cart-quantity-control button {
-                padding: 0.2rem 0.6rem;
-                font-size: 0.85rem;
-            }
-
-            .cart-quantity-control span {
-                margin: 0 0.3rem;
-            }
-
-            .cart-total {
-                font-size: 1rem;
-            }
-
-            .checkout-btn {
-                padding: 0.6rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .themes {
-                padding: 2rem 0.5rem;
-            }
-
-            .themes h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
             }
 
             .slideshow-container {
@@ -613,193 +687,7 @@
             }
 
             .slide {
-                font-size: 1.2rem;
-            }
-
-            .theme-description {
-                font-size: 0.9rem;
-                margin-top: 1rem;
-            }
-
-            .about {
-                padding: 2rem 0.5rem;
-            }
-
-            .about h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1rem;
-            }
-
-            .about p {
-                font-size: 0.9rem;
-            }
-
-            .contact {
-                padding: 2rem 0.5rem;
-            }
-
-            .contact h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1rem;
-            }
-
-            .contact input,
-            .contact textarea {
-                padding: 0.6rem;
-                font-size: 0.9rem;
-            }
-
-            .contact button {
-                padding: 0.6rem;
-                font-size: 0.9rem;
-            }
-
-            footer {
-                padding: 1.5rem 0.5rem;
-            }
-
-            footer p {
-                font-size: 0.8rem;
-            }
-
-            footer a {
-                margin: 0 0.2rem;
-                font-size: 0.8rem;
-            }
-
-            .share-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-                margin-top: 0.8rem;
-            }
-        }
-
-        /* Additional responsiveness for very small screens (e.g., 320px) */
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1rem;
-            }
-
-            .nav-links a {
-                margin-left: 0.5rem;
-                font-size: 0.75rem;
-            }
-
-            .hero {
-                height: 60vh;
-            }
-
-            .hero h1 {
                 font-size: 1.5rem;
-            }
-
-            .hero p {
-                font-size: 0.85rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .cta-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .products h2 {
-                font-size: 1.5rem;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-
-            .product-card img {
-                height: 120px;
-            }
-
-            .product-card h3 {
-                font-size: 0.9rem;
-            }
-
-            .product-card p {
-                font-size: 0.8rem;
-            }
-
-            .product-card .price {
-                font-size: 0.85rem;
-            }
-
-            .quantity-control button {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.8rem;
-            }
-
-            .quantity-control span {
-                font-size: 0.8rem;
-            }
-
-            .cart h2 {
-                font-size: 1.5rem;
-            }
-
-            .cart-table {
-                font-size: 0.75rem;
-            }
-
-            .cart-table th, .cart-table td {
-                padding: 0.3rem;
-            }
-
-            .cart-quantity-control button {
-                padding: 0.15rem 0.5rem;
-                font-size: 0.75rem;
-            }
-
-            .cart-total {
-                font-size: 0.9rem;
-            }
-
-            .checkout-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .themes h2 {
-                font-size: 1.5rem;
-            }
-
-            .slideshow-container {
-                height: 200px;
-            }
-
-            .slide {
-                font-size: 1rem;
-            }
-
-            .theme-description {
-                font-size: 0.85rem;
-            }
-
-            .about h2 {
-                font-size: 1.5rem;
-            }
-
-            .about p {
-                font-size: 0.85rem;
-            }
-
-            .contact h2 {
-                font-size: 1.5rem;
-            }
-
-            .contact input,
-            .contact textarea {
-                padding: 0.5rem;
-                font-size: 0.85rem;
-            }
-
-            .contact button {
-                padding: 0.5rem;
-                font-size: 0.85rem;
             }
         }
     </style>
@@ -807,13 +695,13 @@
 <body>
     <header>
         <nav>
-            <div class="logo">Jewelry Boutique</div>
+            <div class="logo">Nitya Chikankari</div>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#products">Shop</a>
                 <a href="#product-page">Products</a>
                 <a href="#cart">Cart</a>
-                <a href="#themes">Themes</a>
+                <a href="#themes">Collections</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -822,19 +710,19 @@
 
     <section class="hero" id="home">
         <div class="hero-slideshow">
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
-                Timeless Elegance
+            <div class="hero-slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/stunning_yellow_silk_palazzo_suit_with_dupatta_1719832812as2881471_2.jpg');">
+                Timeless Chikankari
             </div>
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f');">
-                Crafted Perfection
+            <div class="hero-slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/trendy_white_palazzo_suit_with_dupatta_1719832365as2892600_2.jpg');">
+                Handcrafted Elegance
             </div>
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1611652022419-a9419f74343d');">
-                Sparkle Always
+            <div class="hero-slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg');">
+                Lucknowi Heritage
             </div>
         </div>
         <div class="hero-content">
-            <h1>Elegant Jewelry for Every Occasion</h1>
-            <p>Discover our exquisite collection of handcrafted pieces.</p>
+            <h1>Authentic Chikankari Craftsmanship</h1>
+            <p>Discover hand-embroidered sarees, kurtis, and more from Lucknow.</p>
             <a href="#products" class="cta-btn">Shop Now</a>
         </div>
     </section>
@@ -843,24 +731,28 @@
         <h2>Our Collection</h2>
         <div class="product-grid">
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f" alt="Necklace">
-                <h3>Classic Necklace</h3>
-                <p>Timeless elegance in gold.</p>
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover">
+                <h3>Chikankari Saree</h3>
+                <p>Elegant hand-embroidered saree.</p>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d" alt="Ring">
-                <h3>Diamond Ring</h3>
-                <p>Sparkle with every moment.</p>
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover">
+                <h3>Chikankari Kurti</h3>
+                <p>Lightweight and stylish kurti.</p>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1" alt="Earrings">
-                <h3>Pearl Earrings</h3>
-                <p>Subtle sophistication.</p>
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover">
+                <h3>Co-ord Set</h3>
+                <p>Modern chikankari co-ord set.</p>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66" alt="Bracelet">
-                <h3>Gold Bracelet</h3>
-                <p>Graceful and bold.</p>
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover">
+                <h3>Anarkali Suit</h3>
+                <p>Graceful anarkali with embroidery.</p>
             </div>
         </div>
     </section>
@@ -868,55 +760,90 @@
     <section class="products" id="product-page">
         <h2>Explore All Products</h2>
         <div class="product-grid">
-            <div class="product-card" data-id="1" data-name="Classic Necklace" data-price="150">
-                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f" alt="Necklace">
-                <h3>Classic Necklace</h3>
-                <p>Timeless elegance in gold.</p>
+            <div class="product-card" data-id="1" data-name="Chikankari Saree" data-price="150">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg" alt="Chikankari Saree">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Saree Hover">
+                <h3>Chikankari Saree</h3>
+                <p>Elegant hand-embroidered saree.</p>
                 <p class="price">$150</p>
+                <select class="size-dropdown" aria-label="Select size for Chikankari Saree">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
                 <div class="quantity-control">
                     <button class="decrease">-</button>
                     <span class="quantity">0</span>
                     <button class="increase">+</button>
                 </div>
             </div>
-            <div class="product-card" data-id="2" data-name="Diamond Ring" data-price="300">
-                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d" alt="Ring">
-                <h3>Diamond Ring</h3>
-                <p>Sparkle with every moment.</p>
-                <p class="price">$300</p>
+            <div class="product-card" data-id="2" data-name="Chikankari Kurti" data-price="80">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg" alt="Chikankari Kurti">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Chikankari Kurti Hover">
+                <h3>Chikankari Kurti</h3>
+                <p>Lightweight and stylish kurti.</p>
+                <p class="price">$80</p>
+                <select class="size-dropdown" aria-label="Select size for Chikankari Kurti">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
                 <div class="quantity-control">
                     <button class="decrease">-</button>
                     <span class="quantity">0</span>
                     <button class="increase">+</button>
                 </div>
             </div>
-            <div class="product-card" data-id="3" data-name="Pearl Earrings" data-price="120">
-                <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1" alt="Earrings">
-                <h3>Pearl Earrings</h3>
-                <p>Subtle sophistication.</p>
+            <div class="product-card" data-id="3" data-name="Co-ord Set" data-price="120">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg" alt="Co-ord Set">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Co-ord Set Hover">
+                <h3>Co-ord Set</h3>
+                <p>Modern chikankari co-ord set.</p>
                 <p class="price">$120</p>
+                <select class="size-dropdown" aria-label="Select size for Co-ord Set">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
                 <div class="quantity-control">
                     <button class="decrease">-</button>
                     <span class="quantity">0</span>
                     <button class="increase">+</button>
                 </div>
             </div>
-            <div class="product-card" data-id="4" data-name="Gold Bracelet" data-price="200">
-                <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66" alt="Bracelet">
-                <h3>Gold Bracelet</h3>
-                <p>Graceful and bold.</p>
+            <div class="product-card" data-id="4" data-name="Anarkali Suit" data-price="200">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg" alt="Anarkali Suit">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Anarkali Suit Hover">
+                <h3>Anarkali Suit</h3>
+                <p>Graceful anarkali with embroidery.</p>
                 <p class="price">$200</p>
+                <select class="size-dropdown" aria-label="Select size for Anarkali Suit">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
                 <div class="quantity-control">
                     <button class="decrease">-</button>
                     <span class="quantity">0</span>
                     <button class="increase">+</button>
                 </div>
             </div>
-            <div class="product-card" data-id="5" data-name="Silver Pendant" data-price="180">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Pendant">
-                <h3>Silver Pendant</h3>
-                <p>Elegant and versatile.</p>
-                <p class="price">$180</p>
+            <div class="product-card" data-id="5" data-name="Chikankari Top" data-price="60">
+                <img src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg" alt="Chikankari Top">
+                <img class="hover-image" src="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/stunning_yellow_silk_palazzo_suit_with_dupatta_1719832812as2881471_2.jpg" alt="Chikankari Top Hover">
+                <h3>Chikankari Top</h3>
+                <p>Casual top with chikankari work.</p>
+                <p class="price">$60</p>
+                <select class="size-dropdown" aria-label="Select size for Chikankari Top">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
                 <div class="quantity-control">
                     <button class="decrease">-</button>
                     <span class="quantity">0</span>
@@ -932,6 +859,7 @@
             <thead>
                 <tr>
                     <th>Product</th>
+                    <th>Size</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
@@ -944,26 +872,26 @@
     </section>
 
     <section class="themes" id="themes">
-        <h2>Explore Our Themes</h2>
+        <h2>Explore Our Collections</h2>
         <div class="slideshow-container">
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');">
-                Classic Elegance
+            <div class="slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/classic_georgette_purple_palazzo_suit_1719830263as2869284_4.jpg');">
+                Festive Elegance
             </div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1611652022419-a9419f74343d');">
-                Modern Brilliance
+            <div class="slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/fabulous_purple_georgette_designer_suit_1720000351as2941633_5.jpg');">
+                Casual Chic
             </div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1608043152269-423dbba4e7e1');">
-                Vintage Charm
+            <div class="slide" style="background-image: url('https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg');">
+                Traditional Charm
             </div>
         </div>
         <p class="theme-description">
-            Discover our curated themes, each designed to reflect a unique story and style. From timeless classics to modern masterpieces, find the perfect piece for you.
+            Explore our curated collections, each showcasing the art of Lucknowi chikankari. From festive wear to everyday elegance, find your perfect piece.
         </p>
     </section>
 
     <section class="about" id="about">
         <h2>About Us</h2>
-        <p>We are passionate about creating jewelry that tells a story. Each piece is crafted with care, blending tradition with modern elegance to bring you timeless beauty.</p>
+        <p>Nitya Chikankari is dedicated to preserving the timeless art of Lucknowi chikankari. Our artisans handcraft each saree, kurti, and suit with intricate embroidery, blending traditional techniques with contemporary designs. Rooted in the cultural heritage of Lucknow, we bring you elegant, sustainable fashion that celebrates craftsmanship and empowers local communities.</p>
     </section>
 
     <section class="contact" id="contact">
@@ -977,13 +905,14 @@
     </section>
 
     <footer>
-        <p>© 2025 Jewelry Boutique. All rights reserved.</p>
+        <p>© 2025 Nitya Chikankari. All rights reserved.</p>
         <p>
             <a href="#contact">Contact Us</a> | 
             <a href="#products">Shop</a> | 
             <a href="#product-page">Products</a> | 
             <a href="#cart">Cart</a> | 
-            <a href="#themes">Themes</a>
+            <a href="#themes">Collections</a> | 
+            <a href="https://www.instagram.com/_nitya_chikankari/" target="_blank" aria-label="Follow Nitya Chikankari on Instagram">_nitya_chikankari</a>
         </p>
         <button class="share-btn">Share this Page</button>
     </footer>
@@ -1081,6 +1010,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${item.name}</td>
+                        <td>${item.size}</td>
                         <td>$${item.price}</td>
                         <td>
                             <div class="cart-quantity-control">
@@ -1101,16 +1031,18 @@
             function updateQuantity(id, change, quantitySpan, decreaseBtn) {
                 try {
                     const item = cart.find(item => item.id === id);
+                    const card = document.querySelector(`.product-card[data-id="${id}"]`);
+                    const size = card.querySelector('.size-dropdown').value;
                     if (item) {
                         item.quantity += change;
+                        item.size = size;
                         if (item.quantity <= 0) {
                             cart = cart.filter(cartItem => cartItem.id !== id);
                         }
                     } else if (change > 0) {
-                        const card = document.querySelector(`.product-card[data-id="${id}"]`);
                         const name = card.dataset.name;
                         const price = parseFloat(card.dataset.price);
-                        cart.push({ id, name, price, quantity: 1 });
+                        cart.push({ id, name, price, size, quantity: 1 });
                     }
                     const newQuantity = parseInt(quantitySpan.textContent) + change;
                     if (newQuantity >= 0) {
