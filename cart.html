@@ -9,52 +9,64 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Nitya Chikankari</div>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="shop.html">Shop</a>
-                <a href="products.html">Products</a>
-                <a href="cart.html">Cart</a>
-                <a href="collections.html">Collections</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </nav>
-    </header>
+<header>
+    <nav>
+        <div class="logo">Nitya Chikankari</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="collections.html">Collections</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+</header>
 
-    <section class="cart">
-        <h2>Your Cart</h2>
-        <table class="cart-table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Size</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="cart-items"></tbody>
-        </table>
-        <p class="cart-total">Total: $<span id="cart-total">0</span></p>
-        <button class="checkout-btn">Proceed to Checkout</button>
-    </section>
+<section class="cart">
+    <h2>Your Cart</h2>
+    <table class="cart-table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+    </table>
+    <p class="cart-total">Total: $<span id="cart-total">0</span></p>
+    <button class="checkout-btn">Proceed to Checkout</button>
+</section>
 
-    <footer>
-        <p>© 2025 Nitya Chikankari. All rights reserved.</p>
-        <p>
-            <a href="contact.html">Contact Us</a> | 
-            <a href="shop.html">Shop</a> | 
-            <a href="products.html">Products</a> | 
-            <a href="cart.html">Cart</a> | 
-            <a href="collections.html">Collections</a> | 
-            <a href="https://www.instagram.com/_nitya_chikankari/" target="_blank" aria-label="Follow Nitya Chikankari on Instagram">_nitya_chikankari</a>
-        </p>
-        <button class="share-btn">Share this Page</button>
-    </footer>
+<footer>
+    <p>© 2025 Nitya Chikankari. All rights reserved.</p>
+    <p>
+        <a href="contact.html">Contact Us</a> |
+        <a href="shop.html">Shop</a> |
+        <a href="products.html">Products</a> |
+        <a href="cart.html">Cart</a> |
+        <a href="collections.html">Collections</a> |
+        <a href="https://www.instagram.com/_nitya_chikankari/" target="_blank" aria-label="Follow Nitya Chikankari on Instagram">_nitya_chikankari</a>
+    </p>
+    <button class="share-btn">Share this Page</button>
+</footer>
 
-    <script src="scripts.js"></script>
+<!-- Location Modal for Checkout -->
+<div id="location-modal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close location-modal-close">×</button>
+        <h2 id="modal-title" class="modal-title">Enter Your Location</h2>
+        <div class="location-form">
+            <input type="text" id="location-input" placeholder="Enter your city or address" required>
+            <button id="submit-location" class="cta-btn">Submit & Proceed</button>
+        </div>
+    </div>
+</div>
+
+<script defer src="scripts.js"></script>
 </body>
 </html>

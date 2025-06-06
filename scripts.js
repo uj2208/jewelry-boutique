@@ -3,6 +3,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    console.log('Cart saved to localStorage:', cart);
 }
 
 function updateCart() {
@@ -10,6 +11,7 @@ function updateCart() {
     const cartTotal = document.getElementById('cart-total');
     if (!cartItems || !cartTotal) return;
 
+    console.log('Updating cart table with cart:', cart);
     cartItems.innerHTML = '';
     let total = 0;
     cart.forEach(item => {
@@ -36,32 +38,129 @@ function updateCart() {
 }
 
 function updateQuantity(id, change, quantitySpan, decreaseBtn) {
+    console.log(`updateQuantity called with id: ${id}, change: ${change}`);
+    console.log('Cart before update:', cart);
     try {
         const item = cart.find(item => item.id === id);
         const card = document.querySelector(`.product-card[data-id="${id}"]`);
         const size = card ? card.querySelector('.size-dropdown').value : (item ? item.size : 'M');
+        let newQuantity;
+        let isNewItem = false;
+
         if (item) {
             item.quantity += change;
             item.size = size;
+            newQuantity = item.quantity;
+            console.log(`Item quantity updated to: ${newQuantity}`);
             if (item.quantity <= 0) {
                 cart = cart.filter(cartItem => cartItem.id !== id);
+                newQuantity = 0;
+                console.log('Item removed from cart');
             }
         } else if (change > 0) {
             const name = card.dataset.name;
             const price = parseFloat(card.dataset.price);
             cart.push({ id, name, price, size, quantity: 1 });
+            newQuantity = 1;
+            isNewItem = true;
+            console.log(`New item added to cart: ${name}, Quantity: 1`);
+        } else {
+            newQuantity = 0;
+            console.log('No item found and change <= 0, setting quantity to 0');
         }
+
         if (quantitySpan && decreaseBtn) {
-            const newQuantity = parseInt(quantitySpan.textContent) + change;
-            if (newQuantity >= 0) {
-                quantitySpan.textContent = newQuantity;
-                decreaseBtn.disabled = newQuantity === 0;
+            quantitySpan.textContent = newQuantity;
+            decreaseBtn.disabled = newQuantity === 0;
+            console.log(`UI updated - Quantity span set to: ${quantitySpan.textContent}, Decrease button disabled: ${decreaseBtn.disabled}`);
+
+            // Trigger cart animation if a new item is added
+            if (isNewItem && card) {
+                const productImage = card.querySelector('.product-image');
+                const cartLink = document.querySelector('.nav-links a[href="cart.html"]');
+                if (productImage && cartLink) {
+                    const imgClone = productImage.cloneNode(true);
+                    imgClone.classList.add('cart-animation');
+                    document.body.appendChild(imgClone);
+
+                    // Get positions for animation
+                    const cardRect = card.getBoundingClientRect();
+                    const endRect = cartLink.getBoundingClientRect();
+
+                    // Start position: Center above the product card
+                    const cloneWidth = imgClone.width;
+                    const cloneHeight = imgClone.height;
+                    const startX = cardRect.left + (cardRect.width / 2) - (cloneWidth / 2);
+                    const startY = cardRect.top + window.scrollY - cloneHeight - 10;
+
+                    imgClone.style.left = `${startX}px`;
+                    imgClone.style.top = `${startY}px`;
+
+                    // Calculate the final position (center of the cart link)
+                    const endX = endRect.left + (endRect.width / 2) - (cloneWidth / 2);
+                    const endY = endRect.top + window.scrollY + (endRect.height / 2) - (cloneHeight / 2);
+
+                    // Animate to the cart link
+                    requestAnimationFrame(() => {
+                        imgClone.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
+                    });
+
+                    imgClone.addEventListener('animationend', () => {
+                        imgClone.remove();
+                    });
+                }
             }
         }
+
+        console.log('Cart after update:', cart);
+        saveCart();
         updateCart();
     } catch (error) {
         console.error('Error updating quantity:', error);
     }
+}
+
+// Generate a random order number (e.g., ORDER-123456)
+function generateOrderNumber() {
+    const randomNum = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
+    return `ORDER-${randomNum}`;
+}
+
+// Format cart details for WhatsApp message
+function formatOrderDetails(orderNumber, location) {
+    let message = `New Order: ${orderNumber}\n\n`;
+    message += `Customer Location: ${location}\n\n`;
+    message += "Order Details:\n";
+    let total = 0;
+
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        message += `- ${item.name} (Size: ${item.size}, Quantity: ${item.quantity}) - $${itemTotal}\n`;
+    });
+
+    message += `\nTotal: $${total.toFixed(2)}\n`;
+    message += `\nThank you for shopping with Nitya Chikankari!`;
+
+    // Encode message for URL
+    return encodeURIComponent(message);
+}
+
+// Sync quantities with cart state on page load
+function syncQuantities() {
+    console.log('Syncing quantities on page load');
+    document.querySelectorAll('.product-card').forEach(card => {
+        const id = card.dataset.id;
+        const quantitySpan = card.querySelector('.quantity');
+        const decreaseBtn = card.querySelector('.decrease');
+        const item = cart.find(item => item.id === id);
+        if (item && quantitySpan && decreaseBtn) {
+            quantitySpan.textContent = item.quantity;
+            quantitySpan.offsetHeight;
+            decreaseBtn.disabled = item.quantity === 0;
+            console.log(`Synced quantity for id ${id}: ${item.quantity}`);
+        }
+    });
 }
 
 // Share Button Functionality
@@ -84,7 +183,7 @@ function setupShareButton() {
     }
 }
 
-// Modal Functionality
+// Modal Functionality for Product Details
 function setupModal() {
     const modal = document.getElementById('product-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -160,23 +259,70 @@ function setupModal() {
     }
 }
 
+// Image Zoom Functionality
+function setupImageZoom() {
+    const zoomOverlay = document.getElementById('image-zoom-overlay');
+    const zoomedImage = document.getElementById('zoomed-image');
+    const zoomClose = document.querySelector('.zoom-close');
+
+    if (zoomOverlay && zoomedImage && zoomClose) {
+        document.querySelectorAll('.zoomable').forEach(img => {
+            img.addEventListener('click', () => {
+                console.log('Image clicked for zoom:', img.src);
+                zoomedImage.src = img.src;
+                zoomedImage.alt = img.alt;
+                zoomOverlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        zoomClose.addEventListener('click', () => {
+            console.log('Zoom close button clicked');
+            zoomOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        zoomOverlay.addEventListener('click', (e) => {
+            if (e.target === zoomOverlay) {
+                console.log('Clicked outside zoomed image');
+                zoomOverlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        zoomClose.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            console.log('Zoom close button touched');
+            zoomOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, { passive: false });
+    }
+}
+
 // Product Card Quantity Controls
 function setupProductCards() {
-    document.querySelectorAll('.product-card').forEach(card => {
+    console.log(`Found ${document.querySelectorAll('.product-card').length} product cards`);
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
         const increaseBtn = card.querySelector('.increase');
         const decreaseBtn = card.querySelector('.decrease');
-        const quantitySpan = card.querySelector('.quantity');
+        let quantitySpan = card.querySelector('.quantity');
+
+        console.log('Increase button:', increaseBtn);
+        console.log('Decrease button:', decreaseBtn);
+        console.log('Quantity span:', quantitySpan);
 
         if (!increaseBtn || !decreaseBtn || !quantitySpan) {
             console.error('Quantity control elements not found in product card');
             return;
         }
 
-        decreaseBtn.disabled = true;
-
-        increaseBtn.addEventListener('click', function() {
+        increaseBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Increase button clicked');
             try {
                 const id = card.dataset.id;
+                quantitySpan = card.querySelector('.quantity');
                 updateQuantity(id, 1, quantitySpan, decreaseBtn);
                 const name = card.dataset.name;
                 alert(`${name} added to cart!`);
@@ -185,9 +331,12 @@ function setupProductCards() {
             }
         });
 
-        decreaseBtn.addEventListener('click', function() {
+        decreaseBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Decrease button clicked');
             try {
                 const id = card.dataset.id;
+                quantitySpan = card.querySelector('.quantity');
                 const currentQuantity = parseInt(quantitySpan.textContent);
                 if (currentQuantity > 0) {
                     updateQuantity(id, -1, quantitySpan, decreaseBtn);
@@ -197,9 +346,13 @@ function setupProductCards() {
             }
         });
     });
+
+    document.addEventListener('click', (e) => {
+        console.log('Click event captured on:', e.target);
+    });
 }
 
-// Cart Page Specific Functionality
+// Cart Page Specific Functionality with Checkout
 function setupCartPage() {
     const cartItems = document.getElementById('cart-items');
     if (cartItems) {
@@ -219,22 +372,66 @@ function setupCartPage() {
         });
 
         const checkoutBtn = document.querySelector('.checkout-btn');
-        if (checkoutBtn) {
+        const locationModal = document.getElementById('location-modal');
+        const locationInput = document.getElementById('location-input');
+        const submitLocationBtn = document.getElementById('submit-location');
+        const locationModalClose = document.querySelector('.location-modal-close');
+
+        if (checkoutBtn && locationModal && locationInput && submitLocationBtn && locationModalClose) {
             checkoutBtn.addEventListener('click', function() {
                 if (cart.length === 0) {
                     alert('Your cart is empty!');
                 } else {
-                    alert('Proceeding to checkout...');
-                    cart = [];
-                    updateCart();
-                    document.querySelectorAll('.product-card').forEach(card => {
-                        const quantitySpan = card.querySelector('.quantity');
-                        const decreaseBtn = card.querySelector('.decrease');
-                        if (quantitySpan && decreaseBtn) {
-                            quantitySpan.textContent = '0';
-                            decreaseBtn.disabled = true;
-                        }
-                    });
+                    // Show location modal
+                    locationModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    locationInput.value = ''; // Clear previous input
+                }
+            });
+
+            submitLocationBtn.addEventListener('click', function() {
+                const location = locationInput.value.trim();
+                if (!location) {
+                    alert('Please enter your location.');
+                    return;
+                }
+
+                // Generate order number and format message
+                const orderNumber = generateOrderNumber();
+                const message = formatOrderDetails(orderNumber, location);
+
+                // Redirect to WhatsApp
+                const whatsappNumber = '+7007992535';
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+
+                // Clear cart and update UI
+                cart = [];
+                updateCart();
+                document.querySelectorAll('.product-card').forEach(card => {
+                    const quantitySpan = card.querySelector('.quantity');
+                    const decreaseBtn = card.querySelector('.decrease');
+                    if (quantitySpan && decreaseBtn) {
+                        quantitySpan.textContent = '0';
+                        quantitySpan.offsetHeight;
+                        decreaseBtn.disabled = true;
+                    }
+                });
+
+                // Close location modal
+                locationModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            locationModalClose.addEventListener('click', () => {
+                locationModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            locationModal.addEventListener('click', (e) => {
+                if (e.target === locationModal) {
+                    locationModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }
             });
         }
@@ -316,14 +513,23 @@ function setupImageReveal() {
     });
 }
 
-// Initialize Page-Specific Features
-document.addEventListener('DOMContentLoaded', () => {
+// Ensure DOM is fully loaded before initializing
+function initialize() {
+    console.log('Initializing scripts');
     setupShareButton();
     setupModal();
+    setupImageZoom();
     setupProductCards();
+    syncQuantities();
     setupCartPage();
     setupContactForm();
     setupSlideshow();
     setupHeroVideo();
     setupImageReveal();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+} else {
+    initialize();
+}
